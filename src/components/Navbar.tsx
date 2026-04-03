@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { Menu, X, Wrench, BookOpen, HelpCircle, Calculator, GitCompare, FileText } from "lucide-react";
 
@@ -18,8 +19,8 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 bg-card/80 backdrop-blur-lg border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-2 font-heading text-xl font-bold text-foreground">
-            <span className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground text-sm font-bold">G</span>
+          <Link href="/" className="flex items-center gap-2 font-heading text-xl font-bold text-foreground">
+            <Image src="https://res.cloudinary.com/dhdbxilef/image/upload/q_auto/f_auto/v1775182794/GaoShouKe.png" alt="GaoShouKe Logo" width={32} height={32} className="w-8 h-8 rounded-lg" />
             GaoShouKe
           </Link>
 
@@ -27,7 +28,7 @@ const Navbar = () => {
             {navItems.map(item => (
               <Link
                 key={item.href}
-                to={item.href}
+                href={item.href}
                 className="px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
               >
                 {item.label}
@@ -46,7 +47,7 @@ const Navbar = () => {
           {navItems.map(item => (
             <Link
               key={item.href}
-              to={item.href}
+              href={item.href}
               onClick={() => setOpen(false)}
               className="flex items-center gap-3 px-6 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
             >

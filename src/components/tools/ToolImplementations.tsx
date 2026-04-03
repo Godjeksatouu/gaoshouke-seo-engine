@@ -1,3 +1,4 @@
+"use client";
 import { useState, useCallback } from "react";
 
 export const WordCounterTool = () => {
@@ -659,7 +660,7 @@ export const MetaTagGeneratorTool = () => {
 };
 
 // Generic tool for tools without specific implementations
-export const GenericTool = ({ toolName, category }: { toolName: string; category: string }) => {
+export const GenericTool = ({ toolName, category, adMiddleSlot }: { toolName: string; category: string; adMiddleSlot?: React.ReactNode }) => {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
 
@@ -675,6 +676,7 @@ export const GenericTool = ({ toolName, category }: { toolName: string; category
         <button onClick={process} className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90">Process</button>
         <button onClick={() => { setInput(""); setOutput(""); }} className="px-4 py-2 rounded-lg bg-secondary text-secondary-foreground text-sm font-medium hover:bg-secondary/80">Clear</button>
       </div>
+      {adMiddleSlot}
       {output && (
         <div className="relative">
           <pre className="p-4 rounded-lg bg-muted text-foreground text-sm whitespace-pre-wrap">{output}</pre>

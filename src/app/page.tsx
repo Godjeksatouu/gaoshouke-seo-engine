@@ -1,11 +1,16 @@
-import { Link } from "react-router-dom";
-import SEOHead from "@/components/SEOHead";
+import Link from "next/link";
 import NicheCard from "@/components/NicheCard";
 import ItemCard from "@/components/ItemCard";
 import AdSlot from "@/components/AdSlot";
 import { getFeaturedTools } from "@/lib/data/tools";
 import { SITE_DESCRIPTION } from "@/lib/seo";
 import { ArrowRight, Zap, Shield, Clock } from "lucide-react";
+
+export const metadata = {
+  title: "Free Online Tools, Calculators & Expert Guides",
+  description: SITE_DESCRIPTION,
+  keywords: "free online tools, calculators, how-to guides, tech tutorials, comparisons"
+};
 
 const niches = [
   { title: "Online Tools", description: "200+ free tools for every task", href: "/tools", count: 200, colorClass: "bg-primary" },
@@ -27,12 +32,6 @@ const HomePage = () => {
 
   return (
     <>
-      <SEOHead
-        title="Free Online Tools, Calculators & Expert Guides"
-        description={SITE_DESCRIPTION}
-        keywords="free online tools, calculators, how-to guides, tech tutorials, comparisons"
-      />
-
       {/* Hero */}
       <section className="section-padding text-center">
         <div className="max-w-3xl mx-auto">
@@ -92,7 +91,7 @@ const HomePage = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {featured.map(t => (
-              <ItemCard key={t.slug} title={t.title} description={t.description} href={`/tools/${t.slug}`} badge={t.category} />
+              <ItemCard key={t.slug} title={t.title} description={t.description} href={`/tools/${t.category}/${t.slug}`} badge={t.category} />
             ))}
           </div>
         </div>

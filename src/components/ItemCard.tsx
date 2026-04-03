@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 interface ItemCardProps {
@@ -11,7 +11,7 @@ interface ItemCardProps {
 
 const ItemCard = ({ title, description, href, badge, meta }: ItemCardProps) => (
   <Link
-    to={href}
+    href={href}
     className="group block p-5 rounded-lg bg-card border border-border hover:border-primary/20 hover:shadow-md transition-all duration-200 animate-fade-in"
   >
     <div className="flex items-start justify-between gap-3">

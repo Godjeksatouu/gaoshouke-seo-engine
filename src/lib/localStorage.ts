@@ -5,10 +5,12 @@ export function saveRecentItem(type: string, slug: string) {
   try {
     const data = JSON.parse(localStorage.getItem(RECENT_KEY) || "[]");
     const entry = { type, slug, timestamp: Date.now() };
-    const filtered = data.filter((d: any) => !(d.type === type && d.slug === slug));
+    const filtered = data.filter((d: { type: string; slug: string }) => !(d.type === type && d.slug === slug));
     filtered.unshift(entry);
     localStorage.setItem(RECENT_KEY, JSON.stringify(filtered.slice(0, 20)));
-  } catch {}
+  } catch (err) {
+    console.error("Failed to save recent item", err);
+  }
 }
 
 export function getRecentItems() {
@@ -22,7 +24,9 @@ export function savePreference(key: string, value: string) {
     const prefs = JSON.parse(localStorage.getItem(PREFS_KEY) || "{}");
     prefs[key] = value;
     localStorage.setItem(PREFS_KEY, JSON.stringify(prefs));
-  } catch {}
+  } catch (err) {
+    console.error("Failed to save preference", err);
+  }
 }
 
 export function getPreference(key: string): string | null {

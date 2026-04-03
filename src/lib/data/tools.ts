@@ -25,18 +25,23 @@ const toolNames = [
 const toolCategories = ["text", "image", "developer", "seo", "network", "converter", "generator", "security"];
 const icons = ["FileText", "Image", "Code", "Search", "Globe", "ArrowRightLeft", "Wand2", "Shield"];
 
-const tools: ToolItem[] = Array.from({ length: 200 }).map((_, i) => {
+const tools: ToolItem[] = Array.from({ length: 1250 }).map((_, i) => {
   const catIdx = i % toolCategories.length;
-  const baseName = i < toolNames.length ? toolNames[i] : `Online Tool ${i + 1}`;
+  // Use real names for first 50, generated variations for the rest
+  const baseName = i < toolNames.length 
+    ? toolNames[i] 
+    : `Online ${toolCategories[catIdx].charAt(0).toUpperCase() + toolCategories[catIdx].slice(1)} Tool ${i + 1}`;
+    
   const slug = baseName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  
   return {
     id: i,
-    title: `${baseName} - Free Online Tool`,
+    title: `${baseName} - Free Online Utility`,
     slug,
-    description: `Use our free ${baseName.toLowerCase()} tool online. Fast, free, no signup required. Perfect for developers, writers, and professionals.`,
-    keywords: `${baseName.toLowerCase()}, free ${baseName.toLowerCase()}, online ${baseName.toLowerCase()}, ${toolCategories[catIdx]} tool`,
+    description: `Use our free ${baseName.toLowerCase()} directly in your browser. Fast, secure, and no signup required. Perfect for developers, writers, and professionals.`,
+    keywords: `${baseName.toLowerCase()}, free ${baseName.toLowerCase()}, online utility, ${toolCategories[catIdx]} tool`,
     category: toolCategories[catIdx],
-    icon: icons[catIdx],
+    icon: icons[catIdx] || "Code",
     featured: i < 12,
   };
 });
