@@ -43,10 +43,10 @@ const HomePage = () => {
             1000+ tools, calculators, guides, and comparisons. No signup, no cost, no limits.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-            <Link to="/tools" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity">
+            <Link href="/tools" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity">
               Explore Tools <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link to="/calculators" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-secondary text-secondary-foreground font-medium hover:bg-secondary/80 transition-colors">
+            <Link href="/calculators" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-secondary text-secondary-foreground font-medium hover:bg-secondary/80 transition-colors">
               Try Calculators
             </Link>
           </div>
@@ -85,7 +85,7 @@ const HomePage = () => {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl sm:text-2xl font-heading font-bold text-foreground">Popular Tools</h2>
-            <Link to="/tools" className="text-sm text-primary hover:underline flex items-center gap-1">
+            <Link href="/tools" className="text-sm text-primary hover:underline flex items-center gap-1">
               View all <ArrowRight className="w-3 h-3" />
             </Link>
           </div>
