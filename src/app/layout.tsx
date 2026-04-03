@@ -15,6 +15,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased min-h-screen flex flex-col pt-0">
         <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-Y32P29KEZ9"
+          strategy="afterInteractive"
+        />
+        <Script id="ga-script" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-Y32P29KEZ9');
+        `}
+        </Script>
+
+        <Script
           id="adsense-init"
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5942162513113723"
