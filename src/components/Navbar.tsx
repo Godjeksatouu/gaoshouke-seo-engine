@@ -22,7 +22,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2 font-heading text-xl font-bold text-foreground">
-            <Image src="https://res.cloudinary.com/dhdbxilef/image/upload/q_auto/f_auto/v1775182794/GaoShouKe.png" alt="GaoShouKe Logo" width={32} height={32} className="w-8 h-8 rounded-lg" />
+            <Image src="/logo.png" alt="GaoShouKe Logo" width={32} height={32} className="w-8 h-8 rounded-lg" />
             GaoShouKe
           </Link>
 
