@@ -33,8 +33,7 @@ const toolRegistry: Record<string, React.FC> = {
   "meta-tag-generator": MetaTagGeneratorTool,
 };
 
-export function getToolComponent(slug: string, toolName: string, category: string): React.FC {
+export function getToolComponent(slug: string): React.FC | null {
   if (toolRegistry[slug]) return toolRegistry[slug];
-  // Return a bound generic tool for non-implemented tools
-  return () => <GenericTool toolName={toolName} category={category} />;
+  return null;
 }

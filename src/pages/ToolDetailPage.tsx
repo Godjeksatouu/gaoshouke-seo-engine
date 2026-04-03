@@ -4,6 +4,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import AdSlot from "@/components/AdSlot";
 import { getToolBySlug, getToolsByCategory } from "@/lib/data/tools";
 import { getToolComponent } from "@/components/tools/ToolRegistry";
+import { GenericTool } from "@/components/tools/ToolImplementations";
 import { saveRecentItem } from "@/lib/localStorage";
 import { useEffect } from "react";
 
@@ -24,7 +25,7 @@ const ToolDetailPage = () => {
   );
 
   const toolName = tool.title.split(' - ')[0];
-  const ToolComponent = getToolComponent(tool.slug, toolName, tool.category);
+  const ToolComponent = getToolComponent(tool.slug);
   const related = getToolsByCategory(tool.category).filter(t => t.slug !== tool.slug).slice(0, 6);
 
   return (
@@ -41,7 +42,7 @@ const ToolDetailPage = () => {
           {/* Functional Tool */}
           <div className="rounded-xl border border-border bg-card p-6 sm:p-8 mb-8">
             <h2 className="font-heading text-lg font-semibold text-foreground mb-4">{toolName}</h2>
-            <ToolComponent />
+            {ToolComponent ? <ToolComponent /> : <GenericTool toolName={toolName} category={tool.category} />}
           </div>
 
           <AdSlot />
