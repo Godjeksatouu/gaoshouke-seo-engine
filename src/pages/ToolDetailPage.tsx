@@ -3,6 +3,7 @@ import SEOHead from "@/components/SEOHead";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import AdSlot from "@/components/AdSlot";
 import { getToolBySlug, getToolsByCategory } from "@/lib/data/tools";
+import { getToolComponent } from "@/components/tools/ToolRegistry";
 import { saveRecentItem } from "@/lib/localStorage";
 import { useEffect } from "react";
 
@@ -14,14 +15,22 @@ const ToolDetailPage = () => {
     if (tool) saveRecentItem("tool", tool.slug);
   }, [tool]);
 
-  if (!tool) return <div className="section-padding text-center"><h1 className="text-2xl font-heading font-bold text-foreground">Tool Not Found</h1><Link to="/tools" className="text-primary hover:underline mt-4 inline-block">← Back to Tools</Link></div>;
+  if (!tool) return (
+    <div className="section-padding text-center">
+      <h1 className="text-2xl font-heading font-bold text-foreground">Tool Not Found</h1>
+      <p className="text-muted-foreground mt-2">The tool you're looking for doesn't exist or has been moved.</p>
+      <Link to="/tools" className="text-primary hover:underline mt-4 inline-block">← Browse All Tools</Link>
+    </div>
+  );
 
+  const toolName = tool.title.split(' - ')[0];
+  const ToolComponent = getToolComponent(tool.slug, toolName, tool.category);
   const related = getToolsByCategory(tool.category).filter(t => t.slug !== tool.slug).slice(0, 6);
 
   return (
     <>
       <SEOHead title={tool.title} description={tool.description} keywords={tool.keywords} canonical={`https://gaoshouke.com/tools/${tool.slug}`} ogType="article" />
-      <Breadcrumbs items={[{ label: "Tools", href: "/tools" }, { label: tool.title.split(' - ')[0] }]} />
+      <Breadcrumbs items={[{ label: "Tools", href: "/tools" }, { label: toolName }]} />
 
       <article className="section-padding pt-4">
         <div className="max-w-4xl mx-auto">
@@ -29,29 +38,42 @@ const ToolDetailPage = () => {
           <h1 className="text-3xl sm:text-4xl font-heading font-bold text-foreground mb-3">{tool.title}</h1>
           <p className="text-muted-foreground mb-8">{tool.description}</p>
 
-          {/* Tool Workspace */}
+          {/* Functional Tool */}
           <div className="rounded-xl border border-border bg-card p-6 sm:p-8 mb-8">
-            <h2 className="font-heading text-lg font-semibold text-foreground mb-4">Tool Workspace</h2>
-            <div className="min-h-[200px] flex items-center justify-center rounded-lg bg-muted text-muted-foreground text-sm">
-              Interactive tool area — {tool.title.split(' - ')[0]}
-            </div>
-            <div className="mt-4 flex gap-3">
-              <button className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity">Run Tool</button>
-              <button className="px-4 py-2 rounded-lg bg-secondary text-secondary-foreground text-sm font-medium hover:bg-secondary/80 transition-colors">Clear</button>
-            </div>
+            <h2 className="font-heading text-lg font-semibold text-foreground mb-4">{toolName}</h2>
+            <ToolComponent />
           </div>
 
           <AdSlot />
 
-          {/* How to use */}
+          {/* How to use — dynamic based on tool */}
           <section className="mb-8">
-            <h2 className="font-heading text-xl font-semibold text-foreground mb-3">How to Use This Tool</h2>
+            <h2 className="font-heading text-xl font-semibold text-foreground mb-3">How to Use {toolName}</h2>
             <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground">
-              <li>Enter your input in the workspace above</li>
-              <li>Configure any settings as needed</li>
-              <li>Click "Run Tool" to process</li>
-              <li>Copy or download your results</li>
+              <li>Enter your input data in the tool workspace above</li>
+              <li>Adjust any available settings or options</li>
+              <li>Click the action button to process your input</li>
+              <li>Copy, download, or use the generated results</li>
             </ol>
+          </section>
+
+          {/* FAQ Section for SEO */}
+          <section className="mb-8">
+            <h2 className="font-heading text-xl font-semibold text-foreground mb-3">Frequently Asked Questions</h2>
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-sm font-semibold text-foreground">Is {toolName} free to use?</h3>
+                <p className="text-sm text-muted-foreground mt-1">Yes, {toolName} is completely free. No signup, no downloads, no limits.</p>
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-foreground">Is my data safe?</h3>
+                <p className="text-sm text-muted-foreground mt-1">All processing happens in your browser. Your data never leaves your device.</p>
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-foreground">Does it work on mobile?</h3>
+                <p className="text-sm text-muted-foreground mt-1">Yes, {toolName} is fully responsive and works on all devices.</p>
+              </div>
+            </div>
           </section>
 
           {/* Related */}
