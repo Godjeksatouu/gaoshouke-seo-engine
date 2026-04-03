@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 interface NicheCardProps {
@@ -11,7 +11,7 @@ interface NicheCardProps {
 
 const NicheCard = ({ title, description, href, count, colorClass }: NicheCardProps) => (
   <Link
-    to={href}
+    href={href}
     className="group block p-6 rounded-xl bg-card border border-border hover:border-primary/30 hover:shadow-lg transition-all duration-300"
   >
     <div className={`w-10 h-10 rounded-lg ${colorClass} flex items-center justify-center text-primary-foreground text-sm font-bold mb-4`}>

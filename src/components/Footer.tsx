@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const footerLinks = [
   {
@@ -35,7 +35,7 @@ const Footer = () => (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
         <div className="col-span-2 md:col-span-1">
-          <Link to="/" className="font-heading text-lg font-bold text-foreground">GaoShouKe</Link>
+          <Link href="/" className="font-heading text-lg font-bold text-foreground">GaoShouKe</Link>
           <p className="mt-2 text-sm text-muted-foreground">Free online tools, calculators, and expert guides. No signup required.</p>
         </div>
         {footerLinks.map(section => (
@@ -44,7 +44,7 @@ const Footer = () => (
             <ul className="space-y-2">
               {section.links.map(link => (
                 <li key={link.href}>
-                  <Link to={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">{link.label}</Link>
+                  <Link href={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">{link.label}</Link>
                 </li>
               ))}
             </ul>
