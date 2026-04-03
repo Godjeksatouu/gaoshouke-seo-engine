@@ -1,45 +1,15 @@
 {
   "pages": {
-    "/_not-found/page": [
-      "static/chunks/webpack-e5bb45ecd3152c75.js",
-      "static/chunks/fd9d1056-d0699c359ef5901f.js",
-      "static/chunks/117-c3944eb6eef7df67.js",
-      "static/chunks/main-app-90ed9a3028063983.js",
-      "static/chunks/app/_not-found/page-c779d292a98328fa.js"
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
     ],
     "/layout": [
-      "static/chunks/webpack-e5bb45ecd3152c75.js",
-      "static/chunks/fd9d1056-d0699c359ef5901f.js",
-      "static/chunks/117-c3944eb6eef7df67.js",
-      "static/chunks/main-app-90ed9a3028063983.js",
-      "static/css/4aceae20d41608d9.css",
-      "static/chunks/972-5fcaf806315438be.js",
-      "static/chunks/901-dc7c654d3788ea96.js",
-      "static/chunks/app/layout-a9de185ceea0477c.js"
-    ],
-    "/tools/page": [
-      "static/chunks/webpack-e5bb45ecd3152c75.js",
-      "static/chunks/fd9d1056-d0699c359ef5901f.js",
-      "static/chunks/117-c3944eb6eef7df67.js",
-      "static/chunks/main-app-90ed9a3028063983.js",
-      "static/chunks/972-5fcaf806315438be.js",
-      "static/chunks/app/tools/page-0a77ea995a49af94.js"
-    ],
-    "/page": [
-      "static/chunks/webpack-e5bb45ecd3152c75.js",
-      "static/chunks/fd9d1056-d0699c359ef5901f.js",
-      "static/chunks/117-c3944eb6eef7df67.js",
-      "static/chunks/main-app-90ed9a3028063983.js",
-      "static/chunks/972-5fcaf806315438be.js",
-      "static/chunks/app/page-960cca4c608eb3bb.js"
-    ],
-    "/tools/[category]/[slug]/page": [
-      "static/chunks/webpack-e5bb45ecd3152c75.js",
-      "static/chunks/fd9d1056-d0699c359ef5901f.js",
-      "static/chunks/117-c3944eb6eef7df67.js",
-      "static/chunks/main-app-90ed9a3028063983.js",
-      "static/chunks/972-5fcaf806315438be.js",
-      "static/chunks/app/tools/[category]/[slug]/page-cb06d796a6a94d95.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
     ]
   }
 }
