@@ -103,7 +103,7 @@ const HomePage = () => {
           <div className="space-y-6">
             <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
               <h3 className="text-lg font-semibold text-foreground mb-2">Are these tools really free?</h3>
-              <p className="text-muted-foreground text-sm">Yes, all tools on GaoShouKe are 100% free to use. We don't require any subscription, and there are no hidden fees or limitations.</p>
+              <p className="text-muted-foreground text-sm">Yes, all tools on GaoShouKe are 100% free to use. We don&apos;t require any subscription, and there are no hidden fees or limitations.</p>
             </div>
             <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
               <h3 className="text-lg font-semibold text-foreground mb-2">Do I need to create an account?</h3>

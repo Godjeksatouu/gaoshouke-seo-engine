@@ -1,7 +1,13 @@
 import { notFound } from "next/navigation";
-import { getBlogBySlug } from "@/lib/data/blog";
+import blogPosts, { getBlogBySlug } from "@/lib/data/blog";
 import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
+
+export function generateStaticParams() {
+  return blogPosts.map((post) => ({
+    slug: post.slug,
+  }));
+}
 
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const post = getBlogBySlug(params.slug);
@@ -48,7 +54,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
               </p>
             </div>
             <h2 className="text-2xl font-bold mb-4">Why This Matters</h2>
-            <p className="mb-4">Understanding the nuances of {post.category} is essential for success in today's fast-paced digital environment.</p>
+            <p className="mb-4">Understanding the nuances of {post.category} is essential for success in today&apos;s fast-paced digital environment.</p>
           </div>
 
           <div className="mt-12 pt-8 border-t border-border flex justify-between items-center">
