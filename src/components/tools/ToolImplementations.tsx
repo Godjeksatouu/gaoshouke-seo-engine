@@ -663,26 +663,124 @@ export const MetaTagGeneratorTool = () => {
 export const GenericTool = ({ toolName, category, adMiddleSlot }: { toolName: string; category: string; adMiddleSlot?: React.ReactNode }) => {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
+  const [history, setHistory] = useState<string[]>([]);
 
   const process = () => {
     if (!input.trim()) { setOutput("Please enter some input to process."); return; }
-    setOutput(`✓ Processed with ${toolName}\n\nInput length: ${input.length} characters\nWord count: ${input.trim().split(/\s+/).length} words\n\nResult: Your input has been analyzed by the ${toolName} tool.\n\nTip: This tool is part of our ${category} collection. Check out related tools for more functionality.`);
+    const result = `✓ Processed with ${toolName}\n\nInput length: ${input.length} characters\nWord count: ${input.trim().split(/\s+/).length} words\n\nResult: Your input has been analyzed by the ${toolName} tool.\n\nTip: This tool is part of our ${category} collection. Check out related tools for more functionality.`;
+    setOutput(result);
+    setHistory(prev => [new Date().toLocaleTimeString() + ": Processed", ...prev].slice(0, 5));
   };
 
   return (
     <div className="space-y-4">
       <textarea value={input} onChange={e => setInput(e.target.value)} placeholder={`Enter your input for ${toolName}...`} className="w-full min-h-[180px] p-4 rounded-lg bg-background border border-input text-foreground text-sm resize-y focus:outline-none focus:ring-2 focus:ring-ring" />
       <div className="flex gap-3">
-        <button onClick={process} className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90">Process</button>
+        <button onClick={process} className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90">Process Input</button>
         <button onClick={() => { setInput(""); setOutput(""); }} className="px-4 py-2 rounded-lg bg-secondary text-secondary-foreground text-sm font-medium hover:bg-secondary/80">Clear</button>
       </div>
       {adMiddleSlot}
       {output && (
         <div className="relative">
-          <pre className="p-4 rounded-lg bg-muted text-foreground text-sm whitespace-pre-wrap">{output}</pre>
-          <button onClick={() => navigator.clipboard.writeText(output)} className="absolute top-2 right-2 px-3 py-1 rounded bg-primary text-primary-foreground text-xs">Copy</button>
+          <pre className="p-4 rounded-lg bg-muted border border-border text-foreground text-sm whitespace-pre-wrap">{output}</pre>
+          <button onClick={() => navigator.clipboard.writeText(output)} className="absolute top-2 right-2 px-3 py-1 rounded bg-primary text-primary-foreground text-xs">Copy Result</button>
+        </div>
+      )}
+      {history.length > 0 && (
+        <div className="pt-4 border-t border-border">
+          <h3 className="text-xs font-bold text-muted-foreground uppercase mb-2">Session History</h3>
+          <div className="space-y-1">
+            {history.map((h, i) => (
+              <div key={i} className="text-[10px] text-muted-foreground font-mono">{h}</div>
+            ))}
+          </div>
         </div>
       )}
     </div>
   );
 };
+
+
+export const CaseConverterTool = () => {
+  const [input, setInput] = useState("");
+  const convert = (type: string) => {
+    if (type === "upper") setInput(input.toUpperCase());
+    else if (type === "lower") setInput(input.toLowerCase());
+    else if (type === "title") setInput(input.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()));
+    else if (type === "sentence") setInput(input.charAt(0).toUpperCase() + input.slice(1).toLowerCase());
+  };
+  return (
+    <div className="space-y-4">
+      <textarea value={input} onChange={e => setInput(e.target.value)} placeholder="Type or paste text to convert case..." className="w-full min-h-[150px] p-4 rounded-lg bg-background border border-input text-foreground text-sm font-mono resize-y focus:outline-none focus:ring-2 focus:ring-ring" />
+      <div className="flex flex-wrap gap-2">
+        <button onClick={() => convert("upper")} className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90">UPPERCASE</button>
+        <button onClick={() => convert("lower")} className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90">lowercase</button>
+        <button onClick={() => convert("title")} className="px-4 py-2 rounded-lg bg-secondary text-secondary-foreground text-sm font-medium hover:bg-secondary/80">Title Case</button>
+        <button onClick={() => convert("sentence")} className="px-4 py-2 rounded-lg bg-secondary text-secondary-foreground text-sm font-medium hover:bg-secondary/80">Sentence case</button>
+      </div>
+    </div>
+  );
+};
+
+export const UnixTimestampTool = () => {
+  const [ts, setTs] = useState(Math.floor(Date.now() / 1000).toString());
+  const date = new Date(parseInt(ts) * 1000);
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-3">
+        <input type="text" value={ts} onChange={e => setTs(e.target.value)} className="flex-1 px-4 py-2 rounded-lg bg-background border border-input text-foreground text-sm font-mono focus:outline-none focus:ring-2 focus:ring-ring" />
+        <button onClick={() => setTs(Math.floor(Date.now() / 1000).toString())} className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium">Reset Now</button>
+      </div>
+      <div className="p-6 rounded-lg bg-muted space-y-2">
+        <div className="text-sm text-muted-foreground">Local Time</div>
+        <div className="text-xl font-bold text-foreground">{date.toLocaleString()}</div>
+        <div className="text-sm text-muted-foreground mt-4">UTC Time</div>
+        <div className="text-xl font-bold text-foreground">{date.toUTCString()}</div>
+      </div>
+    </div>
+  );
+};
+
+export const HashGeneratorTool = () => {
+  const [input, setInput] = useState("");
+  const [hashes, setHashes] = useState<Record<string, string>>({});
+  const generate = async () => {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(input);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+    setHashes({ "SHA-256": hashHex, "Input Length": input.length.toString() });
+  };
+  return (
+    <div className="space-y-4">
+      <textarea value={input} onChange={e => setInput(e.target.value)} placeholder="Enter text to hash..." className="w-full min-h-[100px] p-4 rounded-lg bg-background border border-input text-foreground text-sm font-mono focus:outline-none focus:ring-2 focus:ring-ring" />
+      <button onClick={generate} className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90">Generate Hash</button>
+      {Object.entries(hashes).map(([k, v]) => (
+        <div key={k} className="p-3 rounded-lg bg-muted flex items-center justify-between">
+          <span className="text-xs font-bold text-muted-foreground">{k}</span>
+          <span className="text-xs font-mono text-foreground break-all ml-4">{v}</span>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export const NumberBaseConverterTool = () => {
+  const [val, setVal] = useState("255");
+  const num = parseInt(val) || 0;
+  return (
+    <div className="space-y-4">
+      <input type="text" value={val} onChange={e => setVal(e.target.value)} placeholder="Enter a number..." className="w-full px-4 py-2 rounded-lg bg-background border border-input text-foreground text-sm font-mono focus:outline-none focus:ring-2 focus:ring-ring" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {[["Decimal", num.toString(10)], ["Binary", num.toString(2)], ["Hex", "0x" + num.toString(16).toUpperCase()], ["Octal", "0" + num.toString(8)]].map(([l, v]) => (
+          <div key={l} className="p-3 rounded-lg bg-muted flex items-center justify-between">
+            <span className="text-xs text-muted-foreground">{l}</span>
+            <span className="text-sm font-mono text-foreground">{v}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
