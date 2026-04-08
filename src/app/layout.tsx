@@ -17,6 +17,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
+  icons: {
+    icon: 'https://res.cloudinary.com/dhdbxilef/image/upload/q_auto/f_auto/v1775182794/GaoShouKe_asu96q.png',
+    apple: 'https://res.cloudinary.com/dhdbxilef/image/upload/q_auto/f_auto/v1775182794/GaoShouKe_asu96q.png',
+  },
   openGraph: {
     title: 'GaoShouKe — Free Online Tools, Calculators & Guides',
     description: '1000+ free online tools, calculators, guides, and comparisons. No signup required.',
@@ -64,7 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     '@type': 'Organization',
     name: 'GaoShouKe',
     url: 'https://gaoshouke.com',
-    logo: 'https://gaoshouke.com/logo.png',
+    logo: 'https://res.cloudinary.com/dhdbxilef/image/upload/q_auto/f_auto/v1775182794/GaoShouKe_asu96q.png',
     sameAs: [
       'https://twitter.com/gaoshouke',
       'https://facebook.com/gaoshouke',
