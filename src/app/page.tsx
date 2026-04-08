@@ -7,9 +7,9 @@ import { SITE_DESCRIPTION } from "@/lib/seo";
 import { ArrowRight, Zap, Shield, Clock } from "lucide-react";
 
 export const metadata = {
-  title: "Free Online Tools, Calculators & Expert Guides",
-  description: SITE_DESCRIPTION,
-  keywords: "free online tools, calculators, how-to guides, tech tutorials, comparisons"
+  title: "GaoShouKe — 1000+ Free Online Tools, Calculators & Guides",
+  description: "Browse 1000+ free online tools, converters, and calculators. No signup, no limits. Fast, secure, and always free for everyone.",
+  keywords: "free online tools, calculators, how-to guides, tech tutorials, comparisons, online utilities",
 };
 
 const niches = [
@@ -93,6 +93,30 @@ const HomePage = () => {
             {featured.map(t => (
               <ItemCard key={t.slug} title={t.title} description={t.description} href={`/tools/${t.category}/${t.slug}`} badge={t.category} />
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding bg-muted/30">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-heading font-bold text-foreground text-center mb-10">Frequently Asked Questions</h2>
+          <div className="space-y-6">
+            <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
+              <h3 className="text-lg font-semibold text-foreground mb-2">Are these tools really free?</h3>
+              <p className="text-muted-foreground text-sm">Yes, all tools on GaoShouKe are 100% free to use. We don't require any subscription, and there are no hidden fees or limitations.</p>
+            </div>
+            <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
+              <h3 className="text-lg font-semibold text-foreground mb-2">Do I need to create an account?</h3>
+              <p className="text-muted-foreground text-sm">No signup is required. You can start using any tool immediately without providing an email address or personal information.</p>
+            </div>
+            <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
+              <h3 className="text-lg font-semibold text-foreground mb-2">Is my data safe?</h3>
+              <p className="text-muted-foreground text-sm">We prioritize your privacy. Most of our tools process data locally in your browser, meaning your sensitive information never even reaches our servers.</p>
+            </div>
+            <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
+              <h3 className="text-lg font-semibold text-foreground mb-2">How often are new tools added?</h3>
+              <p className="text-muted-foreground text-sm">We regularly update our catalog. Our goal is to provide the most comprehensive suite of online utilities for developers, writers, and students.</p>
+            </div>
           </div>
         </div>
       </section>

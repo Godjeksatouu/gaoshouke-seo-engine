@@ -52,8 +52,27 @@ export default function ToolPage({ params }: { params: { category: string; slug:
   const ToolComponent = getToolComponent(tool.slug);
   const related = getToolsByCategory(tool.category).filter(t => t.slug !== tool.slug).slice(0, 6);
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: toolName,
+    description: tool.description,
+    applicationCategory: 'BrowserApplication',
+    operatingSystem: 'Any',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    url: `https://gaoshouke.com/tools/${tool.category}/${tool.slug}`,
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <article className="section-padding pt-4">
         <div className="max-w-4xl mx-auto">
           {/* Breadcrumbs simplified to match Next routing style */}
