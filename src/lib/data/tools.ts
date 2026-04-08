@@ -7,7 +7,11 @@ export interface ToolItem {
   category: string;
   icon: string;
   featured?: boolean;
+  useCases?: string[];
+  faq?: { q: string; a: string }[];
+  example?: string;
 }
+
 
 const toolNames = [
   "Word Counter", "Character Counter", "Image Compressor", "PDF Merger", "JSON Formatter",
@@ -59,8 +63,20 @@ const tools: ToolItem[] = Array.from({ length: 1250 }).map((_, i) => {
     category,
     icon: icons[catIdx] || "Code",
     featured: i < 12,
+    useCases: [
+      `Quickly process tasks in ${category} workflows`,
+      `Ideal for developers and professionals using ${baseName.toLowerCase()}`,
+      `Educational purposes and data analysis`
+    ],
+    faq: [
+      { q: `What is ${baseName}?`, a: `${baseName} is a specialized online utility designed to help with ${category}-related tasks efficiently.` },
+      { q: `Is ${baseName} free?`, a: `Yes, ${baseName} is completely free to use with no hidden costs.` },
+      { q: `How does ${baseName} work?`, a: `It processes your input locally in the browser to ensure speed and privacy.` }
+    ],
+    example: `Input: sample data\nOutput: processed result using ${baseName.toLowerCase()} logic`
   };
 });
+
 
 
 export default tools;

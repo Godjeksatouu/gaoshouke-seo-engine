@@ -106,30 +106,58 @@ export default function ToolPage({ params }: { params: { category: string; slug:
 
           {/* We assume custom components like ToolComponent inject their own Ad MIDDLE slot, or we enforce it outside if there is a separate Results panel. Since most custom tools render everything inside ToolComponent, generic fallback injects AdMiddle between input and result. if custom component, maybe they lack the Middle ad. This satisfies exact rules generically. */}
           
-          <section className="mb-8">
-            <h2 className="font-heading text-xl font-semibold text-foreground mb-3">How to Use {toolName}</h2>
-            <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground">
-              <li>Enter your input data in the tool workspace above</li>
-              <li>Adjust any available settings or options</li>
-              <li>Click the action button to process your input</li>
-              <li>Copy, download, or use the generated results</li>
-            </ol>
-          </section>
+          {/* Use Cases */}
+          {tool.useCases && (
+            <section className="mb-8">
+              <h2 className="font-heading text-xl font-semibold text-foreground mb-3">Common Use Cases</h2>
+              <ul className="list-disc list-inside space-y-2 text-sm text-muted-foreground">
+                {tool.useCases.map((uc, i) => (
+                  <li key={i}>{uc}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* Example */}
+          {tool.example && (
+            <section className="mb-8">
+              <h2 className="font-heading text-xl font-semibold text-foreground mb-3">Practical Example</h2>
+              <pre className="p-4 rounded-lg bg-muted border border-border text-xs font-mono text-foreground overflow-auto">
+                {tool.example}
+              </pre>
+            </section>
+          )}
+
+          {/* Tool FAQ */}
+          {tool.faq && (
+            <section className="mb-8">
+              <h2 className="font-heading text-xl font-semibold text-foreground mb-4">Frequently Asked Questions</h2>
+              <div className="space-y-4">
+                {tool.faq.map((f, i) => (
+                  <div key={i} className="p-4 rounded-lg border border-border bg-card">
+                    <h3 className="text-sm font-bold text-foreground mb-1">{f.q}</h3>
+                    <p className="text-xs text-muted-foreground">{f.a}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Related Tools */}
           {related.length > 0 && (
-            <section className="mb-8">
-              <h2 className="font-heading text-xl font-semibold text-foreground mb-4">Related Utilities</h2>
+            <section className="mb-12">
+              <h2 className="font-heading text-xl font-semibold text-foreground mb-4">You May Also Like</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {related.map(r => (
-                  <Link key={r.slug} href={`/tools/${r.category}/${r.slug}`} className="p-4 rounded-lg border border-border hover:border-primary/20 hover:shadow-sm transition-all">
-                    <h3 className="text-sm font-semibold text-foreground">{r.title.split(' - ')[0]}</h3>
+                  <Link key={r.slug} href={`/tools/${r.category}/${r.slug}`} className="p-4 rounded-lg border border-border hover:border-primary/20 hover:shadow-sm transition-all bg-card">
+                    <h3 className="text-sm font-semibold text-foreground">{r.title.split(' — ')[0]}</h3>
                     <p className="text-xs text-muted-foreground mt-1 line-clamp-1">{r.description}</p>
                   </Link>
                 ))}
               </div>
             </section>
           )}
+
 
           {/* Ad Slot BOTTOM */}
           <AdBanner slot="BOTTOM" />
