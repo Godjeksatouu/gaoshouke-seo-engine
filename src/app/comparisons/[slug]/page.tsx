@@ -11,12 +11,40 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const item = getComparisonBySlug(params.slug);
   if (!item) return { title: "Comparison Not Found" };
+
+  const url = `https://gaoshouke.com/comparisons/${item.slug}`;
+
   return {
     title: item.title,
     description: item.description,
     keywords: item.keywords,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: item.title,
+      description: item.description,
+      url: url,
+      type: 'article',
+      siteName: 'GaoShouKe',
+      images: [
+        {
+          url: 'https://res.cloudinary.com/dhdbxilef/image/upload/v1775182794/GaoShouKe_asu96q.png',
+          width: 1200,
+          height: 630,
+          alt: item.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: item.title,
+      description: item.description,
+      images: ['https://res.cloudinary.com/dhdbxilef/image/upload/v1775182794/GaoShouKe_asu96q.png'],
+    },
   };
 }
+
 
 export default function ComparisonSlugPage({ params }: { params: { slug: string } }) {
   const item = getComparisonBySlug(params.slug);

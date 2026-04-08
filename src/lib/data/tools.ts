@@ -27,24 +27,41 @@ const icons = ["FileText", "Image", "Code", "Search", "Globe", "ArrowRightLeft",
 
 const tools: ToolItem[] = Array.from({ length: 1250 }).map((_, i) => {
   const catIdx = i % toolCategories.length;
-  // Use real names for first 50, generated variations for the rest
+  const category = toolCategories[catIdx];
+  
+  // Use real names for first batch, then smarter variations
   const baseName = i < toolNames.length 
     ? toolNames[i] 
-    : `Online ${toolCategories[catIdx].charAt(0).toUpperCase() + toolCategories[catIdx].slice(1)} Tool ${i + 1}`;
+    : `${category.charAt(0).toUpperCase() + category.slice(1)} Utility ${i + 1}`;
     
   const slug = baseName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
   
+  // Create more unique templates
+  const titleTemplates = [
+    `Free ${baseName} — Online Browser Utility`,
+    `Premium ${baseName} Tool (100% Free)`,
+    `Secure ${baseName} — Web-based App`,
+    `Fast ${baseName} Online | No Signup`,
+  ];
+  
+  const descTemplates = [
+    `Use our free ${baseName.toLowerCase()} directly in your browser. Fast, secure, and no signup required.`,
+    `Need a reliable ${baseName.toLowerCase()}? Our free online tool provides instant results with zero cost.`,
+    `Optimize your workflow with our ${baseName.toLowerCase()}. Works on any device, completely free of charge.`,
+  ];
+  
   return {
     id: i,
-    title: `${baseName} - Free Online Utility`,
+    title: titleTemplates[i % titleTemplates.length],
     slug,
-    description: `Use our free ${baseName.toLowerCase()} directly in your browser. Fast, secure, and no signup required. Perfect for developers, writers, and professionals.`,
-    keywords: `${baseName.toLowerCase()}, free ${baseName.toLowerCase()}, online utility, ${toolCategories[catIdx]} tool`,
-    category: toolCategories[catIdx],
+    description: descTemplates[i % descTemplates.length],
+    keywords: `${baseName.toLowerCase()}, free ${baseName.toLowerCase()}, online utility, ${category} tool`,
+    category,
     icon: icons[catIdx] || "Code",
     featured: i < 12,
   };
 });
+
 
 export default tools;
 

@@ -24,9 +24,27 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
   const post = getBlogBySlug(params.slug);
   if (!post) notFound();
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    author: {
+      '@type': 'Organization',
+      name: 'GaoShouKe',
+    },
+    image: 'https://res.cloudinary.com/dhdbxilef/image/upload/v1775182794/GaoShouKe_asu96q.png',
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Breadcrumbs items={[{ label: "Blog", href: "/blog" }, { label: post.title }]} />
+
       <article className="section-padding pt-4">
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center gap-3 mb-6">

@@ -11,20 +11,68 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const item = getHowToBySlug(params.slug);
   if (!item) return { title: "How-To Guide Not Found" };
+
+  const url = `https://gaoshouke.com/how-to/${item.slug}`;
+
   return {
     title: item.title,
     description: item.description,
     keywords: item.keywords,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: item.title,
+      description: item.description,
+      url: url,
+      type: 'article',
+      siteName: 'GaoShouKe',
+      images: [
+        {
+          url: 'https://res.cloudinary.com/dhdbxilef/image/upload/v1775182794/GaoShouKe_asu96q.png',
+          width: 1200,
+          height: 630,
+          alt: item.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: item.title,
+      description: item.description,
+      images: ['https://res.cloudinary.com/dhdbxilef/image/upload/v1775182794/GaoShouKe_asu96q.png'],
+    },
   };
 }
+
 
 export default function HowToSlugPage({ params }: { params: { slug: string } }) {
   const item = getHowToBySlug(params.slug);
   if (!item) notFound();
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: item.title,
+    description: item.description,
+    step: item.steps.map((step, i) => ({
+      '@type': 'HowToStep',
+      name: `Step ${i + 1}`,
+      itemListElement: [{
+        '@type': 'HowToDirection',
+        text: step,
+      }]
+    })),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Breadcrumbs items={[{ label: "How-To", href: "/how-to" }, { label: item.title }]} />
+
       <article className="section-padding pt-4">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-heading font-bold text-foreground mb-4">{item.title}</h1>

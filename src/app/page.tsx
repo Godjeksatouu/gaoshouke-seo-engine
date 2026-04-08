@@ -30,8 +30,33 @@ const features = [
 const HomePage = () => {
   const featured = getFeaturedTools().slice(0, 6);
 
+  const faqs = [
+    { q: "Are these tools really free?", a: "Yes, all tools on GaoShouKe are 100% free to use. We don't require any subscription, and there are no hidden fees or limitations." },
+    { q: "Do I need to create an account?", a: "No signup is required. You can start using any tool immediately without providing an email address or personal information." },
+    { q: "Is my data safe?", a: "We prioritize your privacy. Most of our tools process data locally in your browser, meaning your sensitive information never even reaches our servers." },
+    { q: "How often are new tools added?", a: "We regularly update our catalog. Our goal is to provide the most comprehensive suite of online utilities for developers, writers, and students." },
+  ];
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.a,
+      },
+    })),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* Hero */}
       <section className="section-padding text-center">
         <div className="max-w-3xl mx-auto">

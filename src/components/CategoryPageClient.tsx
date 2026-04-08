@@ -104,11 +104,30 @@ const CategoryPageClient = ({
             </div>
           )}
 
+          <div className="mt-16 pt-12 border-t border-border">
+            <h2 className="text-xl font-heading font-bold text-foreground mb-6">Explore Other Categories</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-3">
+              {[
+                { label: "Tools", href: "/tools" },
+                { label: "Guides", href: "/guides" },
+                { label: "How-To", href: "/how-to" },
+                { label: "Calculators", href: "/calculators" },
+                { label: "Comparisons", href: "/comparisons" },
+                { label: "Blog", href: "/blog" }
+              ].filter(c => c.href !== `/${basePath}`).map(c => (
+                <a key={c.href} href={c.href} className="px-4 py-3 rounded-lg bg-card border border-border text-center text-sm font-medium hover:border-primary/30 transition-colors">
+                  {c.label}
+                </a>
+              ))}
+            </div>
+          </div>
+
           <AdBanner slot="BOTTOM" />
         </div>
       </section>
     </>
   );
 };
+
 
 export default CategoryPageClient;
