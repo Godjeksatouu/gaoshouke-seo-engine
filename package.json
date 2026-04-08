@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && (if exist dist rd /s /q dist) && move out dist",
+    "build": "next build && rm -rf dist && mv out dist",
     "preview": "serve dist -p 3000",
     "start": "next start",
     "lint": "next lint"
